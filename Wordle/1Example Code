@@ -1,0 +1,58 @@
+# THIS IS THE EXAMPLE CODE IF YOU WANT TO REFERENCE 
+# DO NOT CHANGE THIS FILE 
+
+import random
+
+wordFile = open("words.txt", "r")
+wordList = []
+nextWord = "X"
+while nextWord != "":
+    nextWord = wordFile.readline().strip()
+    if nextWord != "":
+        wordList.append(nextWord)
+wordFile.close()
+
+choice = random.randint(0, len(wordList) - 1)
+target_word = wordList[choice]
+
+number_of_rounds = 6
+
+have_won = False
+
+# Can do a while loop instead so theres no break
+# while (round < number_of_rounds or have_won):
+#    round += 1
+for round in range(number_of_rounds):
+    print("Round " + str(round + 1))
+
+    # Initializations
+    output = ""
+
+    guess = input("Please Enter Your Guess: ").lower()
+
+    # Validation of The Guess
+    while (len(guess) != 5 or not guess.isalpha()):
+        print("This guess is invalid.")
+        guess = input("Please Enter Your Guess: ").lower()
+
+    # Creating the squares
+    for i in range(len(target_word)):
+        if guess[i] == target_word[i]:
+            output += "🟩"
+        elif guess[i] in target_word:
+            output += "🟨"
+        else:
+            output += "⬜"
+
+    print(output)
+
+    # Check if the guess is the word i dont like the break because mr berry said so but it makes the for else so nice
+    if guess == target_word:
+        print("You've won!")
+        have_won = True
+        break
+# else:
+#     print("You've lost!!")
+
+if not have_won:
+    print("Hahahahahahahahahahahahahah wordle is an easy game")
